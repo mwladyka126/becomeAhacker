@@ -83,14 +83,14 @@ exports.vote = async (req, res) => {
       } else {
         actualVoter.votes.push(req.params.id);
         photoToUpdate.votes++;
-        photoToUpdate.save();
+        await photoToUpdate.save();
         res.send({ message: "OK" });
       }
     } else {
       const newVoter = new Voter({ user: clientIP, votes: req.params.id });
       await newVoter.save();
       photoToUpdate.votes++;
-      photoToUpdate.save();
+      await photoToUpdate.save();
       res.send({ message: "OK" });
     }
   } catch (err) {
